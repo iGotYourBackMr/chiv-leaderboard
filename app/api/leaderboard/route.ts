@@ -25,7 +25,7 @@ const mockPlayers: Record<PageKey, Array<{
   "1": [
     {
       id: 1,
-      name: "Stridah",
+      name: "xXShadowLordXx",
       avatar: '',
       rank: 1,
       previousRank: 2,
@@ -42,7 +42,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 2,
-      name: "Ziggylata",
+      name: "DarkKnight420",
       avatar: '',
       rank: 2,
       previousRank: 1,
@@ -59,7 +59,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 3,
-      name: "Montessoir",
+      name: "EpicGamer9000",
       avatar: '',
       rank: 3,
       previousRank: 3,
@@ -76,7 +76,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 4,
-      name: "Goof",
+      name: "NightBlade777",
       avatar: '',
       rank: 4,
       previousRank: 5,
@@ -93,7 +93,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 5,
-      name: "Xylvion",
+      name: "EliteWarrior",
       avatar: '',
       rank: 5,
       previousRank: 4,
@@ -110,7 +110,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 6,
-      name: "Proxeh",
+      name: "ProGamer123",
       avatar: '',
       rank: 6,
       previousRank: 7,
@@ -127,7 +127,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 7,
-      name: "Fer",
+      name: "SkullCrusher55",
       avatar: '',
       rank: 7,
       previousRank: 6,
@@ -144,7 +144,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 8,
-      name: "Kenzo",
+      name: "LegendSlayer",
       avatar: '',
       rank: 8,
       previousRank: 9,
@@ -161,7 +161,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 9,
-      name: "Sophax",
+      name: "xXDragonFireXx",
       avatar: '',
       rank: 9,
       previousRank: 8,
@@ -178,7 +178,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 10,
-      name: "Hexen",
+      name: "StormRider99",
       avatar: '',
       rank: 10,
       previousRank: 11,
@@ -197,7 +197,7 @@ const mockPlayers: Record<PageKey, Array<{
   "2": [
     {
       id: 11,
-      name: "Moose",
+      name: "BattleMaster64",
       avatar: '',
       rank: 11,
       previousRank: 10,
@@ -214,7 +214,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 12,
-      name: "Spook",
+      name: "ShadowAssassin",
       avatar: '',
       rank: 12,
       previousRank: 13,
@@ -231,7 +231,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 13,
-      name: "Lionheart",
+      name: "DarkPhoenix88",
       avatar: '',
       rank: 13,
       previousRank: 12,
@@ -248,7 +248,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 14,
-      name: "Tempest",
+      name: "NinjaWarrior",
       avatar: '',
       rank: 14,
       previousRank: 15,
@@ -265,7 +265,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 15,
-      name: "Blade",
+      name: "xXReaperXx",
       avatar: '',
       rank: 15,
       previousRank: 14,
@@ -282,7 +282,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 16,
-      name: "Shadow",
+      name: "GhostBlade365",
       avatar: '',
       rank: 16,
       previousRank: 17,
@@ -299,7 +299,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 17,
-      name: "Storm",
+      name: "ThunderStrike",
       avatar: '',
       rank: 17,
       previousRank: 16,
@@ -316,7 +316,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 18,
-      name: "Thunder",
+      name: "DeathBringer",
       avatar: '',
       rank: 18,
       previousRank: 19,
@@ -333,7 +333,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 19,
-      name: "Frost",
+      name: "SteelBlade44",
       avatar: '',
       rank: 19,
       previousRank: 18,
@@ -350,7 +350,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 20,
-      name: "Phoenix",
+      name: "DarkAvenger",
       avatar: '',
       rank: 20,
       previousRank: 21,
@@ -369,7 +369,7 @@ const mockPlayers: Record<PageKey, Array<{
   "3": [
     {
       id: 21,
-      name: "Dragon",
+      name: "WarMachine",
       avatar: '',
       rank: 21,
       previousRank: 20,
@@ -386,7 +386,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 22,
-      name: "Griffin",
+      name: "SoulReaper420",
       avatar: '',
       rank: 22,
       previousRank: 23,
@@ -403,7 +403,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 23,
-      name: "Raven",
+      name: "BloodHunter",
       avatar: '',
       rank: 23,
       previousRank: 22,
@@ -420,7 +420,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 24,
-      name: "Wolf",
+      name: "xXVanguardXx",
       avatar: '',
       rank: 24,
       previousRank: 25,
@@ -437,7 +437,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 25,
-      name: "Bear",
+      name: "KnightRider77",
       avatar: '',
       rank: 25,
       previousRank: 24,
@@ -454,7 +454,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 26,
-      name: "Eagle",
+      name: "BattleKing",
       avatar: '',
       rank: 26,
       previousRank: 27,
@@ -471,7 +471,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 27,
-      name: "Hawk",
+      name: "SwordMaster99",
       avatar: '',
       rank: 27,
       previousRank: 26,
@@ -488,7 +488,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 28,
-      name: "Lion",
+      name: "DarkWarrior",
       avatar: '',
       rank: 28,
       previousRank: 29,
@@ -505,7 +505,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 29,
-      name: "Tiger",
+      name: "BladeMaster",
       avatar: '',
       rank: 29,
       previousRank: 28,
@@ -522,7 +522,7 @@ const mockPlayers: Record<PageKey, Array<{
     },
     {
       id: 30,
-      name: "Panther",
+      name: "ShadowBlade",
       avatar: '',
       rank: 30,
       previousRank: 31,
