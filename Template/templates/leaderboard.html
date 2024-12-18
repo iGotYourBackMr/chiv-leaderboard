@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Region</th>
+                <th>ELO</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Clan</th>
+            </tr>
+            {% for player in players %}
+            <tr>
+                <td>{{ player['rank'] }}</td>
+                <td>{{ player['player'] }}</td>
+                <td>{{ player['region'] }}</td>
+                <td>{{ player['elo'] }}</td>
+                <td>{{ player['wins'] }}</td>
+                <td>{{ player['losses'] }}</td>
+                <td>{{ player['clan'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

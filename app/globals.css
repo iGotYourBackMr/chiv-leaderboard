@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* Mason colors - deep crimson */
+    --mason-primary: 0 72% 32%;
+    --mason-light: 0 65% 45%;
+    --mason-dark: 0 69% 25%;
+    /* Agatha colors - royal blue */
+    --agatha-primary: 215 75% 32%;
+    --agatha-light: 215 70% 45%;
+    --agatha-dark: 215 72% 25%;
+  }
+}
+ 
+@layer base {
+  body {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(0, 0, 139, 0.3)), #111111;
+    min-height: 100vh;
+    @apply text-slate-50;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@layer components {
+  /* Base rounded corner size */
+  :root {
+    --radius-sm: 0.5rem;    /* 8px */
+    --radius-md: 0.75rem;   /* 12px */
+    --radius-lg: 1rem;      /* 16px */
+    --radius-xl: 1.25rem;   /* 20px */
+  }
+
+  .leaderboard-header {
+    @apply bg-gradient-to-r from-[#8B0000]/30 via-[#00008B]/30 to-transparent 
+           border-b border-slate-800/50;
+    border-radius: 0;
+  }
+  
+  .leaderboard-row {
+    @apply border-b border-slate-800/50 hover:bg-slate-900/50 transition-all 
+           cursor-default;
+  }
+
+  .leaderboard-row:hover {
+    @apply bg-slate-900/50;
+  }
+
+  /* Mason (Red) Team Styling */
+  .mason {
+    @apply text-cyan-400;  /* Changed from Mason crimson */
+  }
+
+  .mason-bg {
+    @apply bg-gradient-to-r from-[#8B0000]/40 to-[#580000]/30;
+  }
+
+  .mason-hover {
+    @apply hover:text-cyan-300;  /* Changed hover state */
+  }
+
+  /* Agatha (Blue) Team Styling */
+  .agatha {
+    @apply text-cyan-400;  /* Changed from Agatha blue */
+  }
+
+  .agatha-bg {
+    @apply bg-gradient-to-r from-[#00008B]/40 to-[#000058]/30;
+  }
+
+  .agatha-hover {
+    @apply hover:text-cyan-300;  /* Changed hover state */
+  }
+
+  /* Glass effect for containers */
+  .glass-container {
+    @apply bg-black/40 backdrop-blur-sm border border-slate-800/50 shadow-xl;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  /* Hide scrollbar for the entire container */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* Rank Legend Panel - Slide out panel */
+  .rank-legend {
+    @apply fixed left-0 top-0 h-full z-10
+           bg-black/40 backdrop-blur-sm border-r border-slate-800/50
+           transform -translate-x-full transition-transform duration-300;
+    width: 320px;
+  }
+
+  .rank-legend.open {
+    transform: translateX(2.5rem);
+  }
+
+  .rank-legend-content {
+    @apply p-6 h-full;
+  }
+
+  .rank-legend-title {
+    @apply text-xl font-semibold text-slate-200 mb-6;
+  }
+
+  .rank-legend-item {
+    @apply flex items-center justify-between;
+  }
+
+  .rank-legend-badge {
+    @apply px-4 py-2 text-sm font-medium min-w-[160px]
+           flex items-center justify-center rounded-2xl
+           border border-white/5 shadow-lg;
+  }
+
+  /* Rank Legend Toggle Button */
+  .rank-legend-toggle {
+    @apply fixed left-0 top-0 h-full z-20
+           bg-black/40 backdrop-blur-sm border-r border-slate-800/50
+           flex items-center justify-center
+           cursor-pointer transition-all duration-300
+           hover:bg-black/60;
+    width: 2.5rem;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .rank-legend {
+      width: 280px;
+    }
+
+    .rank-legend.open {
+      transform: translateX(2rem);
+    }
+
+    .rank-legend-badge {
+      min-width: 140px;
+      font-size: 0.875rem;
+    }
+
+    .rank-legend-toggle {
+      width: 2rem;
+    }
+  }
+
+  /* Overlay for mobile */
+  .rank-legend-overlay {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-0 opacity-0 pointer-events-none
+           transition-opacity duration-300;
+  }
+
+  .rank-legend-overlay.open {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  /* Stats coloring */
+  .stat-value.mason {
+    @apply text-cyan-400 group-hover:text-cyan-300 transition-colors;
+  }
+
+  .stat-value.agatha {
+    @apply text-cyan-400 group-hover:text-cyan-300 transition-colors;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900/20;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-[#8B0000]/30 to-[#00008B]/30
+           hover:from-[#c41e3a]/30 hover:to-[#0066cc]/30 transition-colors;
+    border-radius: 8px;
+  }
+
+  /* Input and Select styling */
+  .search-input {
+    @apply bg-black/30 border border-slate-800/50 text-slate-200 
+           placeholder:text-slate-500 focus:border-blue-500/50 
+           focus:ring-2 focus:ring-blue-500/20 transition-all duration-300
+           rounded-2xl backdrop-blur-sm;
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.1);
+  }
+
+  .search-input:hover {
+    @apply border-slate-700/70 bg-black/40;
+    box-shadow: 0 0 25px rgba(0, 102, 204, 0.15);
+  }
+
+  .search-input:focus {
+    @apply outline-none border-blue-500/50 bg-black/50;
+    box-shadow: 0 0 30px rgba(0, 102, 204, 0.2);
+  }
+
+  .custom-select {
+    @apply bg-black/30 border-slate-800/50 text-slate-200 
+           hover:border-slate-700 transition-all duration-300
+           focus:border-slate-700 focus:ring-slate-700/20
+           rounded-2xl;
+  }
+
+  /* Mobile-specific adjustments */
+  @media (max-width: 639px) {
+    .glass-container {
+      @apply mx-2;
+      border-radius: 0.75rem;
+    }
+
+    .rank-legend {
+      width: calc(100% - 2rem);
+    }
+
+    .rank-legend.open {
+      transform: translateX(2rem);
+    }
+
+    .rank-legend-content {
+      @apply p-4;
+    }
+
+    .search-input {
+      @apply text-sm;
+    }
+
+    .custom-select {
+      @apply text-sm;
+    }
+  }
+
+  /* Improved table responsiveness */
+  @media (max-width: 639px) {
+    .leaderboard-row td {
+      @apply p-2;
+    }
+
+    .leaderboard-row td:first-child {
+      @apply pl-2;
+    }
+
+    .leaderboard-row td:last-child {
+      @apply pr-2;
+    }
+  }
+} 
