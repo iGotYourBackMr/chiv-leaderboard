@@ -2,13 +2,6 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-type PageKey = "1" | "2" | "3";
-
-// Helper function to validate page number
-function isValidPageKey(key: string): key is PageKey {
-  return ["1", "2", "3"].includes(key);
-}
-
 // Mock data for the leaderboard
 const mockPlayers: Record<PageKey, Array<{
   id: number;
@@ -549,11 +542,11 @@ export async function GET(request: Request) {
   try {
     // Get pagination parameters from the request URL
     const { searchParams } = new URL(request.url);
-    const pageStr = searchParams.get('page') || '1';
+    const page = searchParams.get('page') || '1';
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
     // Validate page number
-    if (!isValidPageKey(pageStr)) {
+    if (!['1', '2', '3'].includes(page)) {
       return NextResponse.json(
         {
           error: 'Invalid page number',
@@ -564,13 +557,13 @@ export async function GET(request: Request) {
     }
 
     // Get the requested page of players
-    const players = mockPlayers[pageStr];
+    const players = mockPlayers[page as '1' | '2' | '3'];
 
     return NextResponse.json({
       players: players,
       pagination: {
         total: Object.values(mockPlayers).reduce((acc, curr) => acc + curr.length, 0),
-        page: parseInt(pageStr),
+        page: parseInt(page),
         page_size: pageSize,
         total_pages: Object.keys(mockPlayers).length
       }
