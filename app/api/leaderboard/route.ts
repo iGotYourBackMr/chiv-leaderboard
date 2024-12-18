@@ -4,6 +4,11 @@ export const dynamic = 'force-dynamic';
 
 type PageKey = "1" | "2" | "3";
 
+// Helper function to validate page number
+function isValidPageKey(key: string): key is PageKey {
+  return ["1", "2", "3"].includes(key);
+}
+
 // Mock data for the leaderboard
 const mockPlayers: Record<PageKey, Array<{
   id: number;
@@ -544,18 +549,28 @@ export async function GET(request: Request) {
   try {
     // Get pagination parameters from the request URL
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
+    const pageStr = searchParams.get('page') || '1';
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
+    // Validate page number
+    if (!isValidPageKey(pageStr)) {
+      return NextResponse.json(
+        {
+          error: 'Invalid page number',
+          message: 'Page number must be between 1 and 3'
+        },
+        { status: 400 }
+      );
+    }
+
     // Get the requested page of players
-    const pageKey = page.toString() as PageKey;
-    const players = mockPlayers[pageKey] || [];
+    const players = mockPlayers[pageStr];
 
     return NextResponse.json({
       players: players,
       pagination: {
         total: Object.values(mockPlayers).reduce((acc, curr) => acc + curr.length, 0),
-        page: page,
+        page: parseInt(pageStr),
         page_size: pageSize,
         total_pages: Object.keys(mockPlayers).length
       }
