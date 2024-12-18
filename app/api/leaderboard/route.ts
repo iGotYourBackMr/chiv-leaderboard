@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+type PageKey = "1" | "2" | "3";
+
 // Mock data for the leaderboard
 const mockPlayers: Record<PageKey, Array<{
   id: number;
