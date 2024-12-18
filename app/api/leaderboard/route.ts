@@ -1,56 +1,47 @@
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic'; // Disable static optimization
+export const dynamic = 'force-dynamic';
+
+// Mock data for the leaderboard
+const mockPlayers = Array.from({ length: 100 }, (_, i) => ({
+  id: i + 1,
+  name: `Player ${i + 1}`,
+  avatar: '',
+  rank: i + 1,
+  previousRank: i + 2,
+  elo: 2000 - (i * 10),
+  peakElo: 2100 - (i * 8),
+  wins: 100 - i,
+  losses: Math.floor(i / 2),
+  clan: ['VEN', 'KLA', 'FCA', 'NOX'][Math.floor(Math.random() * 4)],
+  region: ['EU', 'NA', 'ASIA'][Math.floor(Math.random() * 3)],
+  level: 100 - Math.floor(Math.random() * 50),
+  mainClass: ['Knight', 'Vanguard', 'Footman', 'Archer'][Math.floor(Math.random() * 4)],
+  faction: Math.random() > 0.5 ? 'mason' : 'agatha',
+  rankTier: (i < 5) ? 'Grandmaster' :
+           (i < 20) ? 'Diamond' :
+           (i < 50) ? 'Gold' : 'Bronze'
+}));
 
 export async function GET(request: Request) {
   try {
     // Get pagination parameters from the request URL
     const { searchParams } = new URL(request.url);
-    const page = searchParams.get('page') || '1';
-    const pageSize = searchParams.get('pageSize') || '10';
+    const page = parseInt(searchParams.get('page') || '1');
+    const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
-    // Try the new paginated endpoint first
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/leaderboard?page=${page}&page_size=${pageSize}`,
-        {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          },
-          next: { revalidate: 0 },
-        }
-      );
+    // Calculate pagination
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedPlayers = mockPlayers.slice(startIndex, endIndex);
 
-      if (response.ok) {
-        const data = await response.json();
-        return NextResponse.json(data);
-      }
-    } catch (error) {
-      console.warn('New endpoint failed, falling back to legacy endpoint');
-    }
-
-    // Fallback to the old endpoint if the new one fails
-    const response = await fetch(`http://127.0.0.1:8000/leaderboard/${page}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-      },
-      next: { revalidate: 0 },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
     return NextResponse.json({
-      players: data.players,
+      players: paginatedPlayers,
       pagination: {
-        total: data.players.length,
-        page: parseInt(page),
-        page_size: parseInt(pageSize),
-        total_pages: Math.ceil(data.players.length / parseInt(pageSize))
+        total: mockPlayers.length,
+        page: page,
+        page_size: pageSize,
+        total_pages: Math.ceil(mockPlayers.length / pageSize)
       }
     });
   } catch (error) {
