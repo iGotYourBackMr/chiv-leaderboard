@@ -2,8 +2,26 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+type PageKey = "1" | "2" | "3";
+
 // Mock data for the leaderboard
-const mockPlayers = {
+const mockPlayers: Record<PageKey, Array<{
+  id: number;
+  name: string;
+  avatar: string;
+  rank: number;
+  previousRank: number;
+  elo: number;
+  peakElo: number;
+  wins: number;
+  losses: number;
+  clan: string;
+  region: "EU" | "NA" | "ASIA";
+  level: number;
+  mainClass: "Knight" | "Vanguard" | "Footman" | "Archer";
+  faction: "mason" | "agatha";
+  rankTier: "Grandmaster" | "Diamond" | "Gold" | "Bronze";
+}>> = {
   "1": [
     {
       id: 1,
@@ -530,7 +548,8 @@ export async function GET(request: Request) {
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
     // Get the requested page of players
-    const players = mockPlayers[page.toString() as keyof typeof mockPlayers] || [];
+    const pageKey = page.toString() as PageKey;
+    const players = mockPlayers[pageKey] || [];
 
     return NextResponse.json({
       players: players,
