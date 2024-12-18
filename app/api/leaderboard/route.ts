@@ -520,7 +520,7 @@ const mockPlayers = {
       rankTier: "Bronze"
     }
   ]
-};
+} as const;
 
 export async function GET(request: Request) {
   try {
@@ -530,7 +530,7 @@ export async function GET(request: Request) {
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
     // Get the requested page of players
-    const players = mockPlayers[page as keyof typeof mockPlayers] || [];
+    const players = mockPlayers[page.toString() as keyof typeof mockPlayers] || [];
 
     return NextResponse.json({
       players: players,
