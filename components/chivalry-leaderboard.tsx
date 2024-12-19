@@ -305,9 +305,9 @@ export default function LeaderboardComponent({
     <>
       <ParticleNetwork />
       <div className="w-full max-w-7xl mx-auto p-4">
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4 overflow-x-auto">
           {/* Mobile/Tablet View: Ranks at top */}
-          <div className="lg:hidden w-full">
+          <div className="lg:hidden w-full min-w-[300px]">
             <RankTiersSidebar className="w-full" isMobile={true} showOnlyRanks={true} />
           </div>
 
@@ -317,7 +317,7 @@ export default function LeaderboardComponent({
           </div>
 
           {/* Leaderboard - Visible on all screen sizes */}
-          <div className="flex-grow">
+          <div className="flex-grow min-w-[300px]">
             <div className="glass-container relative mx-0 lg:mx-0 md:p-0">
               <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
@@ -532,7 +532,7 @@ export default function LeaderboardComponent({
           </div>
 
           {/* Mobile/Tablet View: Recent Duels at bottom */}
-          <div className="lg:hidden w-full mt-4">
+          <div className="lg:hidden w-full mt-4 min-w-[300px]">
             <RankTiersSidebar className="w-full" isMobile={true} showOnlyDuels={true} />
           </div>
         </div>
