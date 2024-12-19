@@ -98,6 +98,7 @@ interface LeaderboardProps {
   };
   onPageChange: (page: number) => void;
   onItemsPerPageChange: (pageSize: number) => void;
+  isMobile?: boolean;
 }
 
 /**
@@ -194,7 +195,8 @@ export default function LeaderboardComponent({
   players, 
   pagination,
   onPageChange,
-  onItemsPerPageChange 
+  onItemsPerPageChange,
+  isMobile = false
 }: LeaderboardProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState<'ALL' | 'EU' | 'NA' | 'ASIA'>('ALL');
@@ -303,230 +305,237 @@ export default function LeaderboardComponent({
     <>
       <ParticleNetwork />
       <div className="w-full max-w-7xl mx-auto p-4 relative">
-        <div className="lg:hidden mb-4 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <RankTiersSidebar className="w-full" isMobile={true} />
+        {/* Mobile/Tablet View: Ranks at top */}
+        <div className="lg:hidden mb-4">
+          <RankTiersSidebar className="w-full" isMobile={true} showOnlyRanks={true} />
+        </div>
+
+        {/* Desktop View: Full sidebar on left */}
+        <div className="hidden lg:block">
+          <RankTiersSidebar className="w-[280px] float-left mr-4" />
+        </div>
+
+        {/* Leaderboard - Visible on all screen sizes */}
+        <div className={`${!isMobile ? 'lg:ml-[280px]' : ''}`}>
+          <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto">
+            <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
+                <div className="flex items-center space-x-2 sm:space-x-4">
+                  <div className="relative">
+                    <img
+                      src="/images/TOlogo.png"
+                      alt="The Order Logo"
+                      className="w-8 h-8 sm:w-12 sm:h-12 object-contain opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#c41e3a]/20 to-[#0066cc]/20 blur-sm rounded-full" />
+                  </div>
+                  <h1 className="text-xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#c41e3a] via-slate-200 to-[#0066cc]">
+                    The Order Ranked 1v1 Duels
+                  </h1>
+                </div>
+                <div className="flex items-center space-x-2 mt-4 sm:mt-0">
+                  <span className="text-sm text-slate-400">Region:</span>
+                  <select
+                    value={selectedRegion}
+                    onChange={(e) => setSelectedRegion(e.target.value as typeof selectedRegion)}
+                    className="custom-select px-3 sm:px-4 py-1 sm:py-2"
+                  >
+                    <option value="ALL" className="bg-[#1a2737] text-slate-200 py-1">All Regions</option>
+                    <option value="EU" className="bg-[#1a2737] text-slate-200 py-1">EU</option>
+                    <option value="NA" className="bg-[#1a2737] text-slate-200 py-1">NA</option>
+                    <option value="ASIA" className="bg-[#1a2737] text-slate-200 py-1">ASIA</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex gap-2 sm:gap-4">
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    placeholder="Search Player"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input w-full pl-8 sm:pl-10 pr-2 sm:pr-4 py-1 sm:py-2 text-sm sm:text-base border"
+                  />
+                  <Search className="w-4 h-4 absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 text-blue-400/70" />
+                </div>
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="custom-select bg-blue-600 hover:bg-blue-500 text-white px-4 sm:px-8 text-sm sm:text-base"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            <div className="overflow-x-hidden">
+              <table className="w-full text-xs sm:text-sm md:text-base">
+                <thead>
+                  <tr className="table-header border-b border-slate-800/50">
+                    <th className="w-[15%] sm:w-[10%] p-2 sm:p-4 font-medium">
+                      <div className="flex items-center justify-center sm:justify-start">
+                        RANK {getSortIcon('rank')}
+                      </div>
+                    </th>
+                    <th className="w-[45%] sm:w-[35%] p-2 sm:p-4 font-medium">
+                      <div className="flex items-center pl-2 sm:pl-[35px]">
+                        PLAYER
+                      </div>
+                    </th>
+                    <th className="hidden sm:table-cell w-[10%] p-4 font-medium">
+                      <div className="flex items-center justify-center">
+                        REGION
+                      </div>
+                    </th>
+                    <th className="w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
+                      <div className="flex items-center justify-center">
+                        ELO {getSortIcon('elo')}
+                      </div>
+                    </th>
+                    <th className="hidden sm:table-cell w-[10%] p-4 font-medium cursor-pointer" onClick={() => handleSort('wins')}>
+                      <div className="flex items-center justify-center">
+                        <Target className="w-4 h-4 mr-1" />
+                        WINS {getSortIcon('wins')}
+                      </div>
+                    </th>
+                    <th className="hidden sm:table-cell w-[10%] p-4 font-medium cursor-pointer" onClick={() => handleSort('losses')}>
+                      <div className="flex items-center justify-center">
+                        <Skull className="w-4 h-4 mr-1" />
+                        LOSSES {getSortIcon('losses')}
+                      </div>
+                    </th>
+                    <th className="hidden sm:table-cell w-[10%] p-4 font-medium cursor-pointer" onClick={() => handleSort('clan')}>
+                      <div className="flex items-center justify-center">
+                        CLAN {getSortIcon('clan')}
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="relative">
+                  {sortedAndFilteredPlayers.map((player) => (
+                    <tr 
+                      key={player.id} 
+                      className={`leaderboard-row group ${player.faction}-bg md:cursor-default cursor-pointer transition-all duration-200 hover:scale-[1.01] animate-fadeIn`}
+                      style={{
+                        animationDelay: `${player.rank * 50}ms`,
+                        opacity: 0,
+                        animation: 'fadeIn 0.5s ease forwards'
+                      }}
+                      onClick={() => {
+                        if (window.innerWidth < 768) {
+                          setSelectedPlayer(player);
+                        }
+                      }}
+                    >
+                      <td className="p-2 sm:p-4">
+                        <div className="flex items-center space-x-1 sm:space-x-2">
+                          {getRankIcon(player.rank)}
+                          <div className={`w-7 h-7 rounded-full flex items-center justify-center ${
+                            player.rankTier === 'Grandmaster' ? 'bg-[#FF4655]/30' :  // Translucent Red
+                            player.rankTier === 'Diamond' ? 'bg-[#22D3EE]/30' :      // Translucent Cyan
+                            player.rankTier === 'Gold' ? 'bg-[#FFD700]/30' :         // Translucent Gold
+                            'bg-[#B45309]/30'                                        // Translucent Bronze
+                          }`}>
+                            <span className="text-sm sm:text-base text-white">
+                              {player.rank}
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="p-2 sm:p-4">
+                        <div className="flex items-center space-x-2">
+                          <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center ${player.faction === 'mason' ? 'bg-[#c41e3a]/20' : 'bg-[#0066cc]/20'}`}>
+                            <User className={`w-4 h-4 sm:w-5 sm:h-5 ${player.faction === 'mason' ? 'text-[#c41e3a]' : 'text-[#0066cc]'}`} />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className={`text-sm sm:text-base font-medium ${
+                              player.rankTier === 'Grandmaster' ? 'text-[#FF4655]' :  // Red
+                              player.rankTier === 'Diamond' ? 'text-[#22D3EE]' :      // Cyan
+                              player.rankTier === 'Gold' ? 'text-[#FFD700]' :         // Gold
+                              'text-[#B45309]'                                        // Bronze
+                            }`}>
+                              {player.name}
+                            </span>
+                            {getRankBadgeByTier(player.rankTier)}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="hidden sm:table-cell p-4 text-center">
+                        <span className="text-sm sm:text-base text-white">
+                          {player.region}
+                        </span>
+                      </td>
+                      <td className="p-2 sm:p-4 text-center">
+                        <span className="text-sm sm:text-base">{player.elo}</span>
+                      </td>
+                      <td className="hidden sm:table-cell p-4 text-center">{player.wins}</td>
+                      <td className="hidden sm:table-cell p-4 text-center">{player.losses}</td>
+                      <td className="hidden sm:table-cell p-4 text-center">{player.clan}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {pagination && sortedAndFilteredPlayers.length > 0 && (
+              <div className="p-4 flex justify-center border-t border-blue-900/20 rounded-b-2xl">
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    onClick={() => handlePageChange(pagination.page - 1)}
+                    disabled={pagination.page === 1}
+                    className="hover:bg-black/60 px-3 h-9 rounded-xl border border-slate-700/50 shadow-lg shadow-black/20 backdrop-blur-sm disabled:opacity-50 disabled:shadow-none"
+                  >
+                    <ChevronLeft className="w-4 h-4 text-slate-300" />
+                  </Button>
+
+                  <div className="flex items-center gap-2">
+                    {Array.from({ length: pagination.total_pages }, (_, i) => i + 1).map(page => {
+                      const showPage = page === 1 || 
+                                      page === pagination.total_pages || 
+                                      Math.abs(page - pagination.page) <= 1;
+
+                      if (!showPage) {
+                        if (page === 2 || page === pagination.total_pages - 1) {
+                          return <span key={page} className="text-slate-600">...</span>;
+                        }
+                        return null;
+                      }
+
+                      return (
+                        <Button
+                          key={page}
+                          variant={pagination.page === page ? "default" : "ghost"}
+                          onClick={() => handlePageChange(page)}
+                          className={`${
+                            pagination.page === page
+                              ? "bg-blue-500/20 text-blue-200 border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:bg-blue-500/30"
+                              : "bg-black/40 hover:bg-black/60 text-slate-400 hover:text-slate-200 border-slate-700/50"
+                          } px-3 h-9 min-w-[36px] rounded-xl border shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-200`}
+                        >
+                          {page}
+                        </Button>
+                      );
+                    })}
+                  </div>
+
+                  <Button
+                    variant="ghost"
+                    onClick={() => handlePageChange(pagination.page + 1)}
+                    disabled={pagination.page === pagination.total_pages}
+                    className="hover:bg-black/60 px-3 h-9 rounded-xl border border-slate-700/50 shadow-lg shadow-black/20 backdrop-blur-sm disabled:opacity-50 disabled:shadow-none"
+                  >
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="hidden lg:flex">
-          <RankTiersSidebar className="w-[280px]" />
-          <div className="flex-1 ml-4">
-            <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto">
-              <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
-                  <div className="flex items-center space-x-2 sm:space-x-4">
-                    <div className="relative">
-                      <img
-                        src="/images/TOlogo.png"
-                        alt="The Order Logo"
-                        className="w-8 h-8 sm:w-12 sm:h-12 object-contain opacity-90"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#c41e3a]/20 to-[#0066cc]/20 blur-sm rounded-full" />
-                    </div>
-                    <h1 className="text-xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#c41e3a] via-slate-200 to-[#0066cc]">
-                      The Order Ranked 1v1 Duels
-                    </h1>
-                  </div>
-                  <div className="flex items-center space-x-2 mt-4 sm:mt-0">
-                    <span className="text-sm text-slate-400">Region:</span>
-                    <select
-                      value={selectedRegion}
-                      onChange={(e) => setSelectedRegion(e.target.value as typeof selectedRegion)}
-                      className="custom-select px-3 sm:px-4 py-1 sm:py-2"
-                    >
-                      <option value="ALL" className="bg-[#1a2737] text-slate-200 py-1">All Regions</option>
-                      <option value="EU" className="bg-[#1a2737] text-slate-200 py-1">EU</option>
-                      <option value="NA" className="bg-[#1a2737] text-slate-200 py-1">NA</option>
-                      <option value="ASIA" className="bg-[#1a2737] text-slate-200 py-1">ASIA</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 sm:gap-4">
-                  <div className="relative flex-1">
-                    <input
-                      type="text"
-                      placeholder="Search Player"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="search-input w-full pl-8 sm:pl-10 pr-2 sm:pr-4 py-1 sm:py-2 text-sm sm:text-base border"
-                    />
-                    <Search className="w-4 h-4 absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 text-blue-400/70" />
-                  </div>
-                  <button
-                    onClick={() => setSearchQuery("")}
-                    className="custom-select bg-blue-600 hover:bg-blue-500 text-white px-4 sm:px-8 text-sm sm:text-base"
-                  >
-                    Clear
-                  </button>
-                </div>
-              </div>
-
-              <div className="overflow-x-hidden">
-                <table className="w-full text-xs sm:text-sm md:text-base">
-                  <thead>
-                    <tr className="table-header border-b border-slate-800/50">
-                      <th className="w-[15%] sm:w-[10%] p-2 sm:p-4 font-medium">
-                        <div className="flex items-center justify-center sm:justify-start">
-                          RANK {getSortIcon('rank')}
-                        </div>
-                      </th>
-                      <th className="w-[45%] sm:w-[35%] p-2 sm:p-4 font-medium">
-                        <div className="flex items-center pl-2 sm:pl-[35px]">
-                          PLAYER
-                        </div>
-                      </th>
-                      <th className="hidden sm:table-cell w-[10%] p-4 font-medium">
-                        <div className="flex items-center justify-center">
-                          REGION
-                        </div>
-                      </th>
-                      <th className="w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
-                        <div className="flex items-center justify-center">
-                          ELO {getSortIcon('elo')}
-                        </div>
-                      </th>
-                      <th className="hidden sm:table-cell w-[10%] p-4 font-medium cursor-pointer" onClick={() => handleSort('wins')}>
-                        <div className="flex items-center justify-center">
-                          <Target className="w-4 h-4 mr-1" />
-                          WINS {getSortIcon('wins')}
-                        </div>
-                      </th>
-                      <th className="hidden sm:table-cell w-[10%] p-4 font-medium cursor-pointer" onClick={() => handleSort('losses')}>
-                        <div className="flex items-center justify-center">
-                          <Skull className="w-4 h-4 mr-1" />
-                          LOSSES {getSortIcon('losses')}
-                        </div>
-                      </th>
-                      <th className="hidden sm:table-cell w-[10%] p-4 font-medium cursor-pointer" onClick={() => handleSort('clan')}>
-                        <div className="flex items-center justify-center">
-                          CLAN {getSortIcon('clan')}
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="relative">
-                    {sortedAndFilteredPlayers.map((player) => (
-                      <tr 
-                        key={player.id} 
-                        className={`leaderboard-row group ${player.faction}-bg md:cursor-default cursor-pointer transition-all duration-200 hover:scale-[1.01] animate-fadeIn`}
-                        style={{
-                          animationDelay: `${player.rank * 50}ms`,
-                          opacity: 0,
-                          animation: 'fadeIn 0.5s ease forwards'
-                        }}
-                        onClick={() => {
-                          if (window.innerWidth < 768) {
-                            setSelectedPlayer(player);
-                          }
-                        }}
-                      >
-                        <td className="p-2 sm:p-4">
-                          <div className="flex items-center space-x-1 sm:space-x-2">
-                            {getRankIcon(player.rank)}
-                            <div className={`w-7 h-7 rounded-full flex items-center justify-center ${
-                              player.rankTier === 'Grandmaster' ? 'bg-[#FF4655]/30' :  // Translucent Red
-                              player.rankTier === 'Diamond' ? 'bg-[#22D3EE]/30' :      // Translucent Cyan
-                              player.rankTier === 'Gold' ? 'bg-[#FFD700]/30' :         // Translucent Gold
-                              'bg-[#B45309]/30'                                        // Translucent Bronze
-                            }`}>
-                              <span className="text-sm sm:text-base text-white">
-                                {player.rank}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="p-2 sm:p-4">
-                          <div className="flex items-center space-x-2">
-                            <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center ${player.faction === 'mason' ? 'bg-[#c41e3a]/20' : 'bg-[#0066cc]/20'}`}>
-                              <User className={`w-4 h-4 sm:w-5 sm:h-5 ${player.faction === 'mason' ? 'text-[#c41e3a]' : 'text-[#0066cc]'}`} />
-                            </div>
-                            <div className="flex flex-col">
-                              <span className={`text-sm sm:text-base font-medium ${
-                                player.rankTier === 'Grandmaster' ? 'text-[#FF4655]' :  // Red
-                                player.rankTier === 'Diamond' ? 'text-[#22D3EE]' :      // Cyan
-                                player.rankTier === 'Gold' ? 'text-[#FFD700]' :         // Gold
-                                'text-[#B45309]'                                        // Bronze
-                              }`}>
-                                {player.name}
-                              </span>
-                              {getRankBadgeByTier(player.rankTier)}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="hidden sm:table-cell p-4 text-center">
-                          <span className="text-sm sm:text-base text-white">
-                            {player.region}
-                          </span>
-                        </td>
-                        <td className="p-2 sm:p-4 text-center">
-                          <span className="text-sm sm:text-base">{player.elo}</span>
-                        </td>
-                        <td className="hidden sm:table-cell p-4 text-center">{player.wins}</td>
-                        <td className="hidden sm:table-cell p-4 text-center">{player.losses}</td>
-                        <td className="hidden sm:table-cell p-4 text-center">{player.clan}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {pagination && sortedAndFilteredPlayers.length > 0 && (
-                <div className="p-4 flex justify-center border-t border-blue-900/20 rounded-b-2xl">
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      onClick={() => handlePageChange(pagination.page - 1)}
-                      disabled={pagination.page === 1}
-                      className="hover:bg-black/60 px-3 h-9 rounded-xl border border-slate-700/50 shadow-lg shadow-black/20 backdrop-blur-sm disabled:opacity-50 disabled:shadow-none"
-                    >
-                      <ChevronLeft className="w-4 h-4 text-slate-300" />
-                    </Button>
-
-                    <div className="flex items-center gap-2">
-                      {Array.from({ length: pagination.total_pages }, (_, i) => i + 1).map(page => {
-                        const showPage = page === 1 || 
-                                        page === pagination.total_pages || 
-                                        Math.abs(page - pagination.page) <= 1;
-
-                        if (!showPage) {
-                          if (page === 2 || page === pagination.total_pages - 1) {
-                            return <span key={page} className="text-slate-600">...</span>;
-                          }
-                          return null;
-                        }
-
-                        return (
-                          <Button
-                            key={page}
-                            variant={pagination.page === page ? "default" : "ghost"}
-                            onClick={() => handlePageChange(page)}
-                            className={`${
-                              pagination.page === page
-                                ? "bg-blue-500/20 text-blue-200 border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:bg-blue-500/30"
-                                : "bg-black/40 hover:bg-black/60 text-slate-400 hover:text-slate-200 border-slate-700/50"
-                            } px-3 h-9 min-w-[36px] rounded-xl border shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-200`}
-                          >
-                            {page}
-                          </Button>
-                        );
-                      })}
-                    </div>
-
-                    <Button
-                      variant="ghost"
-                      onClick={() => handlePageChange(pagination.page + 1)}
-                      disabled={pagination.page === pagination.total_pages}
-                      className="hover:bg-black/60 px-3 h-9 rounded-xl border border-slate-700/50 shadow-lg shadow-black/20 backdrop-blur-sm disabled:opacity-50 disabled:shadow-none"
-                    >
-                      <ChevronRight className="w-4 h-4 text-slate-300" />
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+        {/* Mobile/Tablet View: Recent Duels at bottom */}
+        <div className="lg:hidden mt-4">
+          <RankTiersSidebar className="w-full" isMobile={true} showOnlyDuels={true} />
         </div>
       </div>
 
