@@ -304,19 +304,19 @@ export default function LeaderboardComponent({
   return (
     <>
       <ParticleNetwork />
-      <div className="w-full max-w-7xl mx-auto p-4 relative">
+      <div className="w-full max-w-7xl mx-auto p-4 relative flex">
         {/* Mobile/Tablet View: Ranks at top */}
-        <div className="lg:hidden mb-4">
+        <div className="lg:hidden mb-4 w-full">
           <RankTiersSidebar className="w-full" isMobile={true} showOnlyRanks={true} />
         </div>
 
         {/* Desktop View: Full sidebar on left */}
-        <div className="hidden lg:block">
-          <RankTiersSidebar className="w-[280px] float-left mr-4" />
+        <div className="hidden lg:block h-full">
+          <RankTiersSidebar className="w-[280px] mr-4 sticky top-4" />
         </div>
 
         {/* Leaderboard - Visible on all screen sizes */}
-        <div className={`${!isMobile ? 'lg:ml-[280px]' : ''} max-w-full lg:max-w-none mx-auto`}>
+        <div className={`${!isMobile ? 'lg:ml-[280px] flex-1' : ''} max-w-full lg:max-w-none mx-auto`}>
           <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto mx-0 lg:mx-0">
             <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
