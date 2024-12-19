@@ -15,8 +15,8 @@ const RankTiersSidebar = ({
   showOnlyDuels = false
 }: RankTiersSidebarProps) => {
   return (
-    <aside className={`${className} bg-black/40 backdrop-blur-sm rounded-2xl border border-slate-800/50 p-4 shadow-xl h-full flex flex-col`}>
-      <div className={`${isMobile ? 'grid grid-cols-1 sm:grid-cols-2 gap-4' : ''} flex-1`}>
+    <aside className={`${className} bg-black/40 backdrop-blur-sm rounded-2xl border border-slate-800/50 p-4 shadow-xl ${!isMobile ? 'h-full' : ''}`}>
+      <div className={`${isMobile ? 'grid grid-cols-1 sm:grid-cols-2 gap-4' : ''}`}>
         {/* Ranking Tiers Section */}
         {(!showOnlyDuels || !isMobile) && (
           <div className={`${isMobile ? 'sm:pr-4' : ''}`}>
