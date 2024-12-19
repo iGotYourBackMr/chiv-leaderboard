@@ -318,7 +318,7 @@ export default function LeaderboardComponent({
 
           {/* Leaderboard - Visible on all screen sizes */}
           <div className="flex-grow">
-            <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto">
+            <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto mx-0 lg:mx-0 md:p-0">
               <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                   <div className="flex items-center space-x-2 sm:space-x-4">
@@ -374,7 +374,7 @@ export default function LeaderboardComponent({
                   <thead>
                     <tr className="table-header border-b border-slate-800/50">
                       <th className="w-[15%] sm:w-[10%] p-2 sm:p-4 font-medium">
-                        <div className="flex items-center justify-center sm:justify-start">
+                        <div className="flex items-center justify-start px-3 sm:px-0 sm:justify-start">
                           RANK {getSortIcon('rank')}
                         </div>
                       </th>
@@ -389,7 +389,7 @@ export default function LeaderboardComponent({
                         </div>
                       </th>
                       <th className="w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-end px-3 sm:px-0 sm:justify-center">
                           ELO {getSortIcon('elo')}
                         </div>
                       </th>
@@ -429,7 +429,7 @@ export default function LeaderboardComponent({
                         }}
                       >
                         <td className="p-2 sm:p-4">
-                          <div className="flex items-center space-x-1 sm:space-x-2">
+                          <div className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-0">
                             {getRankIcon(player.rank)}
                             <div className={`w-7 h-7 rounded-full flex items-center justify-center ${
                               player.rankTier === 'Grandmaster' ? 'bg-[#FF4655]/30' :  // Translucent Red
@@ -466,8 +466,10 @@ export default function LeaderboardComponent({
                             {player.region}
                           </span>
                         </td>
-                        <td className="p-2 sm:p-4 text-center">
-                          <span className="text-sm sm:text-base">{player.elo}</span>
+                        <td className="p-2 sm:p-4">
+                          <div className="flex items-center justify-end px-3 sm:px-0 sm:justify-center">
+                            <span className="text-sm sm:text-base">{player.elo}</span>
+                          </div>
                         </td>
                         <td className="hidden sm:table-cell p-4 text-center">{player.wins}</td>
                         <td className="hidden sm:table-cell p-4 text-center">{player.losses}</td>
