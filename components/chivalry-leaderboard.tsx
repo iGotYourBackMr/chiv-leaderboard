@@ -209,10 +209,10 @@ export default function LeaderboardComponent({
 
   const getRankBadgeByTier = (rankTier: RankTier) => {
     const badgeStyles = {
-      Grandmaster: 'bg-[#423810] text-yellow-400',
-      Diamond: 'bg-[#1a2937] text-cyan-400',
-      Gold: 'bg-[#423810] text-yellow-600',
-      Bronze: 'bg-[#2b1a1a] text-amber-700',
+      Grandmaster: 'bg-[#423810] text-[#FFD700]',  // Golden yellow
+      Diamond: 'bg-[#1a2937] text-[#22D3EE]',      // Cyan
+      Gold: 'bg-[#423810] text-[#FFA500]',         // Orange gold
+      Bronze: 'bg-[#2b1a1a] text-[#CD7F32]',       // Bronze
     } as const;
 
     return (
@@ -442,10 +442,10 @@ export default function LeaderboardComponent({
                           </div>
                           <div className="flex flex-col">
                             <span className={`text-sm sm:text-base font-medium ${
-                              player.rankTier === 'Grandmaster' ? 'text-yellow-400' :
-                              player.rankTier === 'Diamond' ? 'text-cyan-400' :
-                              player.rankTier === 'Gold' ? 'text-yellow-600' :
-                              'text-amber-700'
+                              player.rankTier === 'Grandmaster' ? 'text-[#FFD700]' :  // Golden yellow
+                              player.rankTier === 'Diamond' ? 'text-[#22D3EE]' :      // Cyan
+                              player.rankTier === 'Gold' ? 'text-[#FFA500]' :         // Orange gold
+                              'text-[#CD7F32]'                                        // Bronze
                             }`}>
                               {player.name}
                             </span>
@@ -554,7 +554,12 @@ export default function LeaderboardComponent({
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <span className={`text-lg font-semibold ${selectedPlayer.faction}`}>
+                    <span className={`text-lg font-semibold ${
+                      selectedPlayer.rankTier === 'Grandmaster' ? 'text-[#FFD700]' :  // Golden yellow
+                      selectedPlayer.rankTier === 'Diamond' ? 'text-[#22D3EE]' :      // Cyan
+                      selectedPlayer.rankTier === 'Gold' ? 'text-[#FFA500]' :         // Orange gold
+                      'text-[#CD7F32]'                                                // Bronze
+                    }`}>
                       {selectedPlayer.name}
                     </span>
                     {getRankBadgeByTier(selectedPlayer.rankTier)}
