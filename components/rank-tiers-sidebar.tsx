@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Shield } from 'lucide-react';
 
 interface RankTiersSidebarProps {
@@ -14,19 +14,37 @@ const RankTiersSidebar = ({
   showOnlyRanks = false,
   showOnlyDuels = false
 }: RankTiersSidebarProps) => {
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    textRefs.current.forEach((ref, index) => {
+      if (ref) {
+        const containerWidth = ref.parentElement?.clientWidth || 0;
+        const textWidth = ref.scrollWidth;
+        const needsScroll = textWidth > containerWidth;
+        
+        // Calculate scroll percentage based on actual widths
+        const scrollPercentage = needsScroll ? 
+          ((textWidth - containerWidth) / containerWidth) * 100 : 0;
+
+        ref.style.setProperty('--scroll-distance', `-${scrollPercentage}%`);
+        ref.classList.toggle('animate', needsScroll);
+      }
+    });
+  }, []);
+
   return (
     <aside className={`${className} bg-black/40 backdrop-blur-sm rounded-xl border border-slate-800/50 p-4 shadow-xl ${!isMobile ? 'h-full' : ''}`}>
       <style jsx>{`
         @keyframes scroll {
           0%, 25% { transform: translateX(0); }
-          35%, 70% { transform: translateX(-50%); }
+          35%, 70% { transform: translateX(var(--scroll-distance, -50%)); }
           80%, 100% { transform: translateX(0); }
         }
         .scroll-text {
           white-space: nowrap;
           position: relative;
           width: 100%;
-          padding-right: 20px;
         }
         .scroll-text.animate {
           animation: scroll 10s infinite ease-in-out;
@@ -111,56 +129,27 @@ const RankTiersSidebar = ({
               Recent Duels
             </div>
             <ul className="space-y-2">
-              <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
-                <div className="flex justify-between items-center">
-                  <div className="flex-1 overflow-hidden mr-2">
-                    <div className="scroll-text animate text-[#FF4655] font-medium">
-                      KnightSlayer vs VanguardElite
+              {[
+                { names: "KnightSlayer vs VanguardElite", time: "2 hours ago", color: "text-[#FF4655]" },
+                { names: "SwordMaster vs ShieldBearer", time: "5 hours ago", color: "text-[#22D3EE]" },
+                { names: "BattleMage vs WarriorKing", time: "1 day ago", color: "text-[#10B981]" },
+                { names: "BladeRunner vs ArmorBreaker", time: "2 days ago", color: "text-[#FF4655]" },
+                { names: "KnightSlayer vs BattleMage", time: "3 days ago", color: "text-[#22D3EE]" }
+              ].map((duel, index) => (
+                <li key={index} className="bg-black/40 rounded-xl p-3 min-w-[240px]">
+                  <div className="flex justify-between items-center">
+                    <div className="flex-1 overflow-hidden mr-2">
+                      <div 
+                        ref={el => textRefs.current[index] = el}
+                        className={`scroll-text ${duel.color} font-medium`}
+                      >
+                        {duel.names}
+                      </div>
                     </div>
+                    <span className="text-[#5B5E65] text-sm whitespace-nowrap">{duel.time}</span>
                   </div>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">2 hours ago</span>
-                </div>
-              </li>
-              <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
-                <div className="flex justify-between items-center">
-                  <div className="flex-1 overflow-hidden mr-2">
-                    <div className="scroll-text animate text-[#22D3EE] font-medium">
-                      SwordMaster vs ShieldBearer
-                    </div>
-                  </div>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">5 hours ago</span>
-                </div>
-              </li>
-              <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
-                <div className="flex justify-between items-center">
-                  <div className="flex-1 overflow-hidden mr-2">
-                    <div className="scroll-text animate text-[#10B981] font-medium">
-                      BattleMage vs WarriorKing
-                    </div>
-                  </div>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">1 day ago</span>
-                </div>
-              </li>
-              <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
-                <div className="flex justify-between items-center">
-                  <div className="flex-1 overflow-hidden mr-2">
-                    <div className="scroll-text animate text-[#FF4655] font-medium">
-                      BladeRunner vs ArmorBreaker
-                    </div>
-                  </div>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">2 days ago</span>
-                </div>
-              </li>
-              <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
-                <div className="flex justify-between items-center">
-                  <div className="flex-1 overflow-hidden mr-2">
-                    <div className="scroll-text animate text-[#22D3EE] font-medium">
-                      KnightSlayer vs BattleMage
-                    </div>
-                  </div>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">3 days ago</span>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         )}
