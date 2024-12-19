@@ -318,7 +318,7 @@ export default function LeaderboardComponent({
 
           {/* Leaderboard - Visible on all screen sizes */}
           <div className="flex-grow">
-            <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto mx-0 lg:mx-0 md:p-0">
+            <div className="glass-container relative mx-0 lg:mx-0 md:p-0">
               <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                   <div className="flex items-center space-x-2 sm:space-x-4">
@@ -369,26 +369,21 @@ export default function LeaderboardComponent({
                 </div>
               </div>
 
-              <div className="overflow-x-hidden">
-                <table className="w-full text-xs sm:text-sm md:text-base">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[400px] text-xs sm:text-sm md:text-base">
                   <thead>
                     <tr className="table-header border-b border-slate-800/50">
-                      <th className="w-[15%] sm:w-[10%] p-2 sm:p-4 font-medium">
+                      <th className="min-w-[80px] w-[15%] sm:w-[10%] p-2 sm:p-4 font-medium">
                         <div className="flex items-center justify-start px-3 sm:px-0 sm:justify-start">
                           RANK {getSortIcon('rank')}
                         </div>
                       </th>
-                      <th className="w-[45%] sm:w-[35%] p-2 sm:p-4 font-medium">
+                      <th className="min-w-[160px] w-[45%] sm:w-[35%] p-2 sm:p-4 font-medium">
                         <div className="flex items-center pl-2 sm:pl-[35px]">
                           PLAYER
                         </div>
                       </th>
-                      <th className="hidden sm:table-cell w-[10%] p-4 font-medium">
-                        <div className="flex items-center justify-center">
-                          REGION
-                        </div>
-                      </th>
-                      <th className="w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
+                      <th className="min-w-[80px] w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
                         <div className="flex items-center justify-end px-3 sm:px-0 sm:justify-center">
                           ELO {getSortIcon('elo')}
                         </div>
