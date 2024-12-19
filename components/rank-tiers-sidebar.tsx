@@ -73,16 +73,24 @@ const RankTiersSidebar = () => {
         </div>
         <ul className="space-y-2">
           <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
-            <span className="text-[#FF4655] font-medium">Player1 vs Player2</span>
+            <span className="text-[#FF4655] font-medium">KnightSlayer vs VanguardElite</span>
             <span className="text-[#5B5E65] text-sm">2 hours ago</span>
           </li>
           <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
-            <span className="text-[#22D3EE] font-medium">Player3 vs Player4</span>
+            <span className="text-[#22D3EE] font-medium">SwordMaster vs ShieldBearer</span>
             <span className="text-[#5B5E65] text-sm">5 hours ago</span>
           </li>
           <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
-            <span className="text-[#10B981] font-medium">Player5 vs Player6</span>
+            <span className="text-[#10B981] font-medium">BattleMage vs WarriorKing</span>
             <span className="text-[#5B5E65] text-sm">1 day ago</span>
+          </li>
+          <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
+            <span className="text-[#FF4655] font-medium">BladeRunner vs ArmorBreaker</span>
+            <span className="text-[#5B5E65] text-sm">2 days ago</span>
+          </li>
+          <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
+            <span className="text-[#22D3EE] font-medium">KnightSlayer vs BattleMage</span>
+            <span className="text-[#5B5E65] text-sm">3 days ago</span>
           </li>
         </ul>
       </div>
