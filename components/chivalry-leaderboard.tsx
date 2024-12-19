@@ -478,7 +478,7 @@ export default function LeaderboardComponent({
                     variant="ghost"
                     onClick={() => handlePageChange(pagination.page - 1)}
                     disabled={pagination.page === 1}
-                    className="hover:bg-black/40 px-3 h-9 rounded-xl border border-slate-800/50 disabled:opacity-50"
+                    className="hover:bg-black/60 px-3 h-9 rounded-xl border border-slate-700/50 shadow-lg shadow-black/20 backdrop-blur-sm disabled:opacity-50 disabled:shadow-none"
                   >
                     <ChevronLeft className="w-4 h-4 text-slate-300" />
                   </Button>
@@ -505,9 +505,9 @@ export default function LeaderboardComponent({
                           onClick={() => handlePageChange(page)}
                           className={`${
                             pagination.page === page
-                              ? "bg-black/60 text-slate-200 border-slate-700"
-                              : "hover:bg-black/40 text-slate-400 hover:text-slate-200"
-                          } px-3 h-9 min-w-[36px] rounded-xl border border-slate-800/50 transition-all duration-200`}
+                              ? "bg-blue-500/20 text-blue-200 border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)] hover:bg-blue-500/30"
+                              : "bg-black/40 hover:bg-black/60 text-slate-400 hover:text-slate-200 border-slate-700/50"
+                          } px-3 h-9 min-w-[36px] rounded-xl border shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-200`}
                         >
                           {page}
                         </Button>
@@ -519,7 +519,7 @@ export default function LeaderboardComponent({
                     variant="ghost"
                     onClick={() => handlePageChange(pagination.page + 1)}
                     disabled={pagination.page === pagination.total_pages}
-                    className="hover:bg-black/40 px-3 h-9 rounded-xl border border-slate-800/50 disabled:opacity-50"
+                    className="hover:bg-black/60 px-3 h-9 rounded-xl border border-slate-700/50 shadow-lg shadow-black/20 backdrop-blur-sm disabled:opacity-50 disabled:shadow-none"
                   >
                     <ChevronRight className="w-4 h-4 text-slate-300" />
                   </Button>
