@@ -424,10 +424,10 @@ export default function LeaderboardComponent({
                         <div className="flex items-center space-x-1 sm:space-x-2">
                           {getRankIcon(player.rank)}
                           <div className={`w-7 h-7 rounded-full flex items-center justify-center ${
-                            player.rankTier === 'Grandmaster' ? 'bg-[#FF4655]' :  // Red
-                            player.rankTier === 'Diamond' ? 'bg-[#22D3EE]' :      // Cyan
-                            player.rankTier === 'Gold' ? 'bg-[#FFD700]' :         // Gold
-                            'bg-[#B45309]'                                        // Bronze
+                            player.rankTier === 'Grandmaster' ? 'bg-[#FF4655]/30' :  // Translucent Red
+                            player.rankTier === 'Diamond' ? 'bg-[#22D3EE]/30' :      // Translucent Cyan
+                            player.rankTier === 'Gold' ? 'bg-[#FFD700]/30' :         // Translucent Gold
+                            'bg-[#B45309]/30'                                        // Translucent Bronze
                           }`}>
                             <span className="text-sm sm:text-base text-white">
                               {player.rank}
