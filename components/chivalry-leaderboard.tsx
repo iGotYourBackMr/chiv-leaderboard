@@ -454,7 +454,7 @@ export default function LeaderboardComponent({
                         </div>
                       </td>
                       <td className="hidden sm:table-cell p-4 text-center">
-                        <span className={`text-sm sm:text-base px-3 py-1 rounded-full ${getRegionColor(player.region)}`}>
+                        <span className="text-sm sm:text-base text-white">
                           {player.region}
                         </span>
                       </td>
