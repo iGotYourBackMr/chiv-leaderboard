@@ -472,57 +472,56 @@ export default function LeaderboardComponent({
 
             {/* Pagination */}
             {pagination && sortedAndFilteredPlayers.length > 0 && (
-              <div className="p-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 sm:justify-between border-t border-blue-900/20 rounded-b-2xl">
-                <select 
-                  value={pagination.page_size}
-                  onChange={(e) => handleItemsPerPageChange(e.target.value)}
-                  className="custom-select px-3 py-2 sm:px-4 sm:py-2 w-[140px] sm:w-auto text-sm sm:text-base"
-                >
-                  <option value="10" className="bg-[#1a2737] text-slate-200 py-1">10 per page</option>
-                  <option value="20" className="bg-[#1a2737] text-slate-200 py-1">20 per page</option>
-                  <option value="50" className="bg-[#1a2737] text-slate-200 py-1">50 per page</option>
-                </select>
-
+              <div className="p-4 flex justify-center border-t border-blue-900/20 rounded-b-2xl">
                 <div className="flex items-center gap-2">
                   <Button
                     variant="ghost"
                     onClick={() => handlePageChange(pagination.page - 1)}
                     disabled={pagination.page === 1}
-                    className="hover:bg-blue-500/10 px-3 sm:px-4 h-10"
+                    className="hover:bg-black/40 px-3 h-9 rounded-xl border border-slate-800/50 disabled:opacity-50"
                   >
-                    <ChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="w-4 h-4 text-slate-300" />
                   </Button>
-                  {Array.from({ length: pagination.total_pages }, (_, i) => i + 1).map(page => {
-                    // On mobile, only show current page and immediate neighbors
-                    if (window.innerWidth < 640 && 
-                        page !== 1 && 
-                        page !== pagination.total_pages && 
-                        Math.abs(page - pagination.page) > 1) {
-                      if (Math.abs(page - pagination.page) === 2) {
-                        return <span key={page} className="text-slate-600 px-1">...</span>;
+
+                  <div className="flex items-center gap-2">
+                    {Array.from({ length: pagination.total_pages }, (_, i) => i + 1).map(page => {
+                      // Show first page, last page, current page, and pages around current
+                      const showPage = page === 1 || 
+                                      page === pagination.total_pages || 
+                                      Math.abs(page - pagination.page) <= 1;
+
+                      // Show dots for skipped pages
+                      if (!showPage) {
+                        if (page === 2 || page === pagination.total_pages - 1) {
+                          return <span key={page} className="text-slate-600">...</span>;
+                        }
+                        return null;
                       }
-                      return null;
-                    }
-                    return (
-                      <Button
-                        key={page}
-                        variant={pagination.page === page ? "default" : "ghost"}
-                        onClick={() => handlePageChange(page)}
-                        className={`${pagination.page === page ? 
-                          "bg-blue-600 hover:bg-blue-500" : 
-                          "hover:bg-blue-500/10"} px-3 sm:px-4 h-10 min-w-[36px] sm:min-w-[40px] text-sm sm:text-base`}
-                      >
-                        {page}
-                      </Button>
-                    );
-                  })}
+
+                      return (
+                        <Button
+                          key={page}
+                          variant={pagination.page === page ? "default" : "ghost"}
+                          onClick={() => handlePageChange(page)}
+                          className={`${
+                            pagination.page === page
+                              ? "bg-black/60 text-slate-200 border-slate-700"
+                              : "hover:bg-black/40 text-slate-400 hover:text-slate-200"
+                          } px-3 h-9 min-w-[36px] rounded-xl border border-slate-800/50 transition-all duration-200`}
+                        >
+                          {page}
+                        </Button>
+                      );
+                    })}
+                  </div>
+
                   <Button
                     variant="ghost"
                     onClick={() => handlePageChange(pagination.page + 1)}
                     disabled={pagination.page === pagination.total_pages}
-                    className="hover:bg-blue-500/10 px-3 sm:px-4 h-10"
+                    className="hover:bg-black/40 px-3 h-9 rounded-xl border border-slate-800/50 disabled:opacity-50"
                   >
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
                   </Button>
                 </div>
               </div>
