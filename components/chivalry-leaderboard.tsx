@@ -383,7 +383,12 @@ export default function LeaderboardComponent({
                           PLAYER
                         </div>
                       </th>
-                      <th className="min-w-[80px] w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
+                      <th className="hidden sm:table-cell w-[10%] p-4 font-medium">
+                        <div className="flex items-center justify-center">
+                          REGION
+                        </div>
+                      </th>
+                      <th className="w-[20%] sm:w-[15%] p-2 sm:p-4 font-medium text-center">
                         <div className="flex items-center justify-end px-3 sm:px-0 sm:justify-center">
                           ELO {getSortIcon('elo')}
                         </div>
