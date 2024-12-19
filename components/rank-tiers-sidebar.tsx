@@ -18,20 +18,18 @@ const RankTiersSidebar = ({
     <aside className={`${className} bg-black/40 backdrop-blur-sm rounded-xl border border-slate-800/50 p-4 shadow-xl ${!isMobile ? 'h-full' : ''}`}>
       <style jsx>{`
         @keyframes scroll {
-          0% { transform: translateX(0); }
-          10% { transform: translateX(0); }
-          40% { transform: translateX(calc(-100% + 200px)); }
-          60% { transform: translateX(calc(-100% + 200px)); }
-          90% { transform: translateX(0); }
-          100% { transform: translateX(0); }
+          0%, 25% { transform: translateX(0); }
+          35%, 70% { transform: translateX(-50%); }
+          80%, 100% { transform: translateX(0); }
         }
         .scroll-text {
           white-space: nowrap;
           position: relative;
           width: 100%;
+          padding-right: 20px;
         }
         .scroll-text.animate {
-          animation: scroll 8s infinite linear;
+          animation: scroll 10s infinite ease-in-out;
           animation-play-state: running;
         }
         .scroll-text.animate:hover {
