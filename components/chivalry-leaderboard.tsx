@@ -316,8 +316,8 @@ export default function LeaderboardComponent({
         </div>
 
         {/* Leaderboard - Visible on all screen sizes */}
-        <div className={`${!isMobile ? 'lg:ml-[280px]' : ''}`}>
-          <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto">
+        <div className={`${!isMobile ? 'lg:ml-[280px]' : ''} max-w-full lg:max-w-none mx-auto`}>
+          <div className="glass-container relative overflow-x-hidden sm:overflow-x-auto mx-0 lg:mx-0">
             <div className="p-3 sm:p-6 border-b border-slate-800/50 leaderboard-header">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
                 <div className="flex items-center space-x-2 sm:space-x-4">
