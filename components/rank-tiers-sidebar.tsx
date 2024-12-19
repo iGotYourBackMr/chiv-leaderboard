@@ -15,7 +15,30 @@ const RankTiersSidebar = ({
   showOnlyDuels = false
 }: RankTiersSidebarProps) => {
   return (
-    <aside className={`${className} bg-black/40 backdrop-blur-sm rounded-2xl border border-slate-800/50 p-4 shadow-xl ${!isMobile ? 'h-full' : ''}`}>
+    <aside className={`${className} bg-black/40 backdrop-blur-sm rounded-xl border border-slate-800/50 p-4 shadow-xl ${!isMobile ? 'h-full' : ''}`}>
+      <style jsx>{`
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          10% { transform: translateX(0); }
+          40% { transform: translateX(calc(-100% + 200px)); }
+          60% { transform: translateX(calc(-100% + 200px)); }
+          90% { transform: translateX(0); }
+          100% { transform: translateX(0); }
+        }
+        .scroll-text {
+          white-space: nowrap;
+          position: relative;
+          width: 100%;
+        }
+        .scroll-text.animate {
+          animation: scroll 8s infinite linear;
+          animation-play-state: running;
+        }
+        .scroll-text.animate:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
       <div className={`${isMobile ? 'w-full overflow-x-auto' : ''}`}>
         {/* Ranking Tiers Section */}
         {(!showOnlyDuels || !isMobile) && (
@@ -92,32 +115,52 @@ const RankTiersSidebar = ({
             <ul className="space-y-2">
               <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#FF4655] font-medium truncate">KnightSlayer vs VanguardElite</span>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap ml-2">2 hours ago</span>
+                  <div className="flex-1 overflow-hidden mr-2">
+                    <div className="scroll-text animate text-[#FF4655] font-medium">
+                      KnightSlayer vs VanguardElite
+                    </div>
+                  </div>
+                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">2 hours ago</span>
                 </div>
               </li>
               <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#22D3EE] font-medium truncate">SwordMaster vs ShieldBearer</span>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap ml-2">5 hours ago</span>
+                  <div className="flex-1 overflow-hidden mr-2">
+                    <div className="scroll-text animate text-[#22D3EE] font-medium">
+                      SwordMaster vs ShieldBearer
+                    </div>
+                  </div>
+                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">5 hours ago</span>
                 </div>
               </li>
               <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#10B981] font-medium truncate">BattleMage vs WarriorKing</span>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap ml-2">1 day ago</span>
+                  <div className="flex-1 overflow-hidden mr-2">
+                    <div className="scroll-text animate text-[#10B981] font-medium">
+                      BattleMage vs WarriorKing
+                    </div>
+                  </div>
+                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">1 day ago</span>
                 </div>
               </li>
               <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#FF4655] font-medium truncate">BladeRunner vs ArmorBreaker</span>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap ml-2">2 days ago</span>
+                  <div className="flex-1 overflow-hidden mr-2">
+                    <div className="scroll-text animate text-[#FF4655] font-medium">
+                      BladeRunner vs ArmorBreaker
+                    </div>
+                  </div>
+                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">2 days ago</span>
                 </div>
               </li>
               <li className="bg-black/40 rounded-xl p-3 min-w-[240px]">
                 <div className="flex justify-between items-center">
-                  <span className="text-[#22D3EE] font-medium truncate">KnightSlayer vs BattleMage</span>
-                  <span className="text-[#5B5E65] text-sm whitespace-nowrap ml-2">3 days ago</span>
+                  <div className="flex-1 overflow-hidden mr-2">
+                    <div className="scroll-text animate text-[#22D3EE] font-medium">
+                      KnightSlayer vs BattleMage
+                    </div>
+                  </div>
+                  <span className="text-[#5B5E65] text-sm whitespace-nowrap">3 days ago</span>
                 </div>
               </li>
             </ul>
