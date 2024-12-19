@@ -1,86 +1,71 @@
-import React, { useState } from 'react';
-import { Shield, Diamond, Star, Menu, X } from 'lucide-react';
+import React from 'react';
+import { Shield } from 'lucide-react';
 
 const RankTiersSidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <>
-      {/* Mobile toggle button */}
-      <button
-        className="lg:hidden fixed left-4 top-4 z-50 p-2 rounded-lg bg-black/40 backdrop-blur-sm border border-slate-800/50"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
-
-      {/* Overlay for mobile */}
-      <div 
-        className={`sidebar-overlay ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen(false)}
-      />
-
-      {/* Sidebar */}
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <div className="sidebar-header">Ranking Tiers</div>
-        
-        <div className="rank-tier grandmaster">
-          <Shield className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Grandmaster</div>
-            <div className="rank-elo">2000+ ELO</div>
+    <aside className="w-[280px] bg-[#0B0E13] rounded-xl border border-[#1E2328] p-4">
+      <div className="text-[#C89B3C] text-center font-semibold mb-4">
+        RANKING TIERS
+      </div>
+      
+      <div className="space-y-2">
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#FF4655]" />
+          <div>
+            <div className="text-[#FF4655] font-medium">Grandmaster</div>
+            <div className="text-[#5B5E65] text-sm">2000+ ELO</div>
           </div>
         </div>
         
-        <div className="rank-tier master">
-          <Shield className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Master</div>
-            <div className="rank-elo">1800-2000 ELO</div>
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#FF8C00]" />
+          <div>
+            <div className="text-[#FF8C00] font-medium">Master</div>
+            <div className="text-[#5B5E65] text-sm">1800-2000 ELO</div>
           </div>
         </div>
         
-        <div className="rank-tier diamond">
-          <Diamond className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Diamond</div>
-            <div className="rank-elo">1600-1800 ELO</div>
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#22D3EE]" />
+          <div>
+            <div className="text-[#22D3EE] font-medium">Diamond</div>
+            <div className="text-[#5B5E65] text-sm">1600-1800 ELO</div>
           </div>
         </div>
         
-        <div className="rank-tier platinum">
-          <Diamond className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Platinum</div>
-            <div className="rank-elo">1400-1600 ELO</div>
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#10B981]" />
+          <div>
+            <div className="text-[#10B981] font-medium">Platinum</div>
+            <div className="text-[#5B5E65] text-sm">1400-1600 ELO</div>
           </div>
         </div>
         
-        <div className="rank-tier gold">
-          <Star className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Gold</div>
-            <div className="rank-elo">1200-1400 ELO</div>
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#FFD700]" />
+          <div>
+            <div className="text-[#FFD700] font-medium">Gold</div>
+            <div className="text-[#5B5E65] text-sm">1200-1400 ELO</div>
           </div>
         </div>
         
-        <div className="rank-tier silver">
-          <Star className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Silver</div>
-            <div className="rank-elo">1000-1200 ELO</div>
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#94A3B8]" />
+          <div>
+            <div className="text-[#94A3B8] font-medium">Silver</div>
+            <div className="text-[#5B5E65] text-sm">1000-1200 ELO</div>
           </div>
         </div>
         
-        <div className="rank-tier bronze">
-          <Star className="rank-icon" />
-          <div className="rank-info">
-            <div className="rank-name">Bronze</div>
-            <div className="rank-elo">&lt;1000 ELO</div>
+        <div className="bg-[#0F1419] rounded-lg p-3 flex items-center gap-3">
+          <Shield className="w-5 h-5 text-[#B45309]" />
+          <div>
+            <div className="text-[#B45309] font-medium">Bronze</div>
+            <div className="text-[#5B5E65] text-sm">&lt;1000 ELO</div>
           </div>
         </div>
-      </aside>
-    </>
+      </div>
+    </aside>
   );
 };
 
