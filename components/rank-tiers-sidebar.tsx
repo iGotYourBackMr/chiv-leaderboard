@@ -65,6 +65,27 @@ const RankTiersSidebar = () => {
           </div>
         </div>
       </div>
+
+      {/* Recent Duels Section */}
+      <div className="mt-6">
+        <div className="text-[#C89B3C] text-center font-semibold mb-2 uppercase tracking-wider">
+          Recent Duels
+        </div>
+        <ul className="space-y-2">
+          <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
+            <span className="text-[#FF4655] font-medium">Player1 vs Player2</span>
+            <span className="text-[#5B5E65] text-sm">2 hours ago</span>
+          </li>
+          <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
+            <span className="text-[#22D3EE] font-medium">Player3 vs Player4</span>
+            <span className="text-[#5B5E65] text-sm">5 hours ago</span>
+          </li>
+          <li className="bg-black/40 rounded-xl p-3 flex justify-between items-center">
+            <span className="text-[#10B981] font-medium">Player5 vs Player6</span>
+            <span className="text-[#5B5E65] text-sm">1 day ago</span>
+          </li>
+        </ul>
+      </div>
     </aside>
   );
 };
